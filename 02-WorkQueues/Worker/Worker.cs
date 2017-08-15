@@ -28,10 +28,11 @@ namespace Worker {
                         var dots = message.Split('.').Length - 1;
                         Thread.Sleep(dots * 1000);
                         Console.WriteLine(" [x] Done");
+                        channel.BasicAck(e.DeliveryTag, false);
                     };
                     channel.BasicConsume(
                         queue: "task_queue",
-                        autoAck: true,
+                        autoAck: false,
                         consumer: consumer
                     );
                     Console.WriteLine("Press [enter] to exit.");
